@@ -1,13 +1,20 @@
-# Restaurant Page Project
+# Weather Web App Project
 
-## Project Overview
-- For this project, I am tasked with building a restaurant homepage using javascript mostly.
-- The whole restaurant page will be dynamically generated using Javascript. 
+## Project Description
+- For this project, I am tasked with building weather web application. 
+- The web app should allow users input a location and be able to get the weather conditons of that location. .
 
-
+## Features
+- Search feature, where users can type in a location and retrieve its weather conditons like temperature, pressure, humidity, et.
+- Hourly weather forecast.
+- Daily weather forecast. 
 
 ## Tools
 - Javascript.
 - CSS.
-- Npm. 
+- Npm, & packages. 
 - Webpack.
+- Web APIs.
+
+## Weather Web APP HomePage
+### Check out the app
