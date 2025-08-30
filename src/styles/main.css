@@ -1,5 +1,5 @@
 /* CSS RULES */
 
-body {
-    background-color: yellow;
+#hero {
+    background-image: url('/assets/images/top\ background\ image.jpg');
 }
