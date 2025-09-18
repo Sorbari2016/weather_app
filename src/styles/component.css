@@ -1,0 +1,129 @@
+/* CAROUSEL RULES */
+
+/* Carousel container */
+.carousel-container {
+  width: 100%;
+  max-width: 800px; /* Adjust width of carousel */
+  margin: 40px auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* Carousel wrapper */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Each slide */
+.carousel-slide {
+  display: none; /* Hidden by default */
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide.active {
+  display: block; /* Only active slide shows */
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+/* Slide number text */
+.number-text {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  padding: 4px 10px;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border-radius: 10%;
+  opacity: 0.75;
+}
+
+/* Slide image */
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+
+/* Navigation buttons */
+.carousel-nav button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 10%;
+  opacity: 0.75;
+  transition: 0.6s ease;
+}
+
+.carousel-nav button img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1); /* White icons */
+}
+
+.carousel-nav button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-nav .prev {
+  left: 12px;
+}
+
+.carousel-nav .next {
+  right: 12px;
+}
+
+/* Indicators (dashes) */
+.carousel-indicator {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carousel-indicator .dash {
+  appearance: none;
+  display: block;
+  width: 30px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+   transition: 0.6s ease;
+  cursor: pointer;
+}
+
+.carousel-indicator button {
+  border:0; 
+}
+
+
+.carousel-indicator .dash.active {
+  background: #3C3D37;
+}
+
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0.3;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+    

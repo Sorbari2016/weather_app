@@ -11,23 +11,23 @@
             <div class="upper-hero">
                 <header>
                     <ul>
-                        <li><img src="#" alt="clare weather logo"></li>
-                        <li><a href="#">Clare Weather</a></li>
+                        <li class="logo">
+                            <img src="/assets/images/weather logo.png" alt="clare weather logo">
+                            <span><a href="#">Clare Weather</a></span>
+                        </li>
                         <li>
-                            <div class="search-area">
-                                <img src="#" alt="search icon">
-                                <input type="search" id="search" placeholder="search your address, city or zip code">
-                            </div>
+                            <form class="search">
+                                <img src="/assets/images/search icon.png" class="icon" alt="search icon">
+                                <input type="search" placeholder="Search your address, city, or zip code">
+                            </form>
                         </li>
                     </ul>
                 </header>
             </div>
             <div class="lower-hero">
                 <div class="time-date">
-                    <span>
-                        <p class="current-date"></p>
-                        <p class="local-time"></p>
-                    </span>
+                    <span class="current-date">Today's Date</span>
+                    <span class="local-time">The current time</span>
                 </div>
                 <div class="weather-card">
                     <div class="weather-symbol">
@@ -42,12 +42,12 @@
                         </ul>
                     </div>
                 </div>
-                <p class="location"></p>
+                <p class="location">Port Harcourt</p>
             </div>
         </div>
         <div id="main-content-area">
             <div class="hourly-container">
-                <h2>Hourly Forecast</h2>
+                <h3>Hourly Forecast</h3>
                 <p class="local-time"></p>
                 <ul>
                     <li class="hour-card">
@@ -98,28 +98,111 @@
                 </ul>
             </div>
             <div class="daily-container">
-                <h2>Daily Forecast</h2>
+                <h3>Daily Forecast</h3>
                 <div class="today">
                     <p class="day"></p>
                     <p class="current-date"></p>
                 </div>
-                <div class="weather-card big-weather-card">
-                    <div class="other-weather-metrics">
-                        <ul>
-                            <li>Precipitation: </li>
-                            <li>Humidity: </li>
-                            <li>Wind: </li>
-                            <li>Pressure:</li>
-                        </ul>
-                    </div>
-                    <div class="temperature"></div>
-                    <div class="weather-symbol">
-                        <img src="#" alt="">
-                    </div>
-                    <div class="next-button">
-                        <button type ="button">
-                            <img src="/assets/images/next icon.png" alt="next icon">
-                        </button>
+                <div class="carousel-container">
+                    <div class="carousel">
+                        <div class="carousel-slide active">
+                            <div class="number-text">1/5</div>
+                            <div class="weather-card big-weather-card">
+                                <div class="other-weather-metrics">
+                                    <ul>
+                                        <li>Precipitation: </li>
+                                        <li>Humidity: </li>
+                                        <li>Wind: </li>
+                                        <li>Pressure:</li>
+                                    </ul>
+                                </div>
+                                <div class="temperature"></div>
+                                <div class="weather-symbol">
+                                    <img src="#" alt="">
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="number-text">2/5</div>
+                            <div class="weather-card big-weather-card">
+                                <div class="other-weather-metrics">
+                                    <ul>
+                                        <li>Precipitation: </li>
+                                        <li>Humidity: </li>
+                                        <li>Wind: </li>
+                                        <li>Pressure:</li>
+                                    </ul>
+                                </div>
+                                <div class="temperature"></div>
+                                <div class="weather-symbol">
+                                    <img src="#" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="number-text">3/5</div>
+                            <div class="weather-card big-weather-card">
+                                <div class="other-weather-metrics">
+                                    <ul>
+                                        <li>Precipitation: </li>
+                                        <li>Humidity: </li>
+                                        <li>Wind: </li>
+                                        <li>Pressure:</li>
+                                    </ul>
+                                </div>
+                                <div class="temperature"></div>
+                                <div class="weather-symbol">
+                                    <img src="#" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="number-text">4/5</div>
+                            <div class="weather-card big-weather-card">
+                                <div class="other-weather-metrics">
+                                    <ul>
+                                        <li>Precipitation: </li>
+                                        <li>Humidity: </li>
+                                        <li>Wind: </li>
+                                        <li>Pressure:</li>
+                                    </ul>
+                                </div>
+                                <div class="temperature"></div>
+                                <div class="weather-symbol">
+                                    <img src="#" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="number-text">5/5</div>
+                            <div class="weather-card big-weather-card">
+                                <div class="other-weather-metrics">
+                                    <ul>
+                                        <li>Precipitation: </li>
+                                        <li>Humidity: </li>
+                                        <li>Wind: </li>
+                                        <li>Pressure:</li>
+                                    </ul>
+                                </div>
+                                <div class="temperature"></div>
+                                <div class="weather-symbol">
+                                    <img src="#" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-nav">
+                            <button type="type" class="prev">
+                                <img src="/assets/images/previous.png" alt="previous icon">
+                            </button>
+                            <button type="type" class="next">
+                                <img src="/assets/images/next.png" alt="next icon">
+                            </button>
+                        </div>
+                        <div class="carousel-indicator">
+                            <button type="button" class="dash active"></button>
+                            <button type="button" class="dash"></button>
+                            <button type="button" class="dash"></button>
+                        </div>
                     </div>
                 </div>
                 <p class="location"></p>
@@ -129,7 +212,7 @@
             <div class="main-footer">
                 <div class="left-main-footer">
                     <div class="footer-box">
-                        <h3>Company</h3>
+                        <h4>Company</h4>
                         <ul>
                             <li><a href="#">About Clare Weather</a></li>
                             <li><a href="#">Careers</a></li>
@@ -137,7 +220,7 @@
                         </ul>
                     </div>
                     <div class="footer-box">
-                        <h3>Product & Services</h3>
+                        <h4>Product & Services</h4>
                         <ul>
                             <li><a href="#">For Business</a></li>
                             <li><a href="#">For Advertising</a></li>
@@ -145,16 +228,16 @@
                         </ul>
                     </div>
                     <div class="footer-box">
-                        <h3>Apps & Downloads</h3>
+                        <h4>Apps & Downloads</h4>
                         <ul>
                             <li><a href="#">Iphone App</a></li>
                             <li><a href="#">Android App</a></li>
-                            <li><a href="#">See All Apps & Downloads</a></li>
+                            <li><a href="#">See all Downloads</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="right-main-footer">
-                    <h3>Subscribe to our Daily weather forecast</h3>
+                    <h4>Subscribe to our Daily weather forecast</h4>
                     <p>Get the latest update on your location</p>
                     <div class="subscribe">
                         <span>
@@ -163,25 +246,24 @@
                         </span>
                     </div>
                     <div class="sm-button">
-                        <button type="button">
-                            <img src="/assets/images/facebook.png" alt="facebook icon">
+                        <button type="button" class="icon-btn">
+                            <img src="/assets/images/facebook.png" class="icon" alt="facebook icon">
                         </button>
-                        <button type="button">
-                            <img src="/assets/images/instagram.png" alt="instagram icon">
+                        <button type="button" class="icon-btn">
+                            <img src="/assets/images/instagram.png" class="icon" alt="instagram icon">
                         </button>
                     </div>
                 </div>
             </div>
-            <hr/>
             <footer>
                 <div class="left-footer">
-                    <p> Clare Weather,inc. All rights reserved.</p>
+                    <p>(c)  Clare Weather,inc. All rights reserved.</p>
                 </div>
                 <div class="right-footer">
                     <ul>
-                        <li><a href="#">Terms of use |</a></li>
-                        <li><a href="#">| Privacy policy |</a></li>
-                        <li><a href="#">| Cookies |</a></li>
+                        <li><a href="#">Terms of use <span>|</span></a></li>
+                        <li><a href="#">Privacy policy <span>|</span></a></li>
+                        <li><a href="#"> Cookies </a></li>
                     </ul>
                 </div>
             </footer>

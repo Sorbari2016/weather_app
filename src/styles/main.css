@@ -1,5 +1,384 @@
-/* CSS RULES */
+/* MAIN STYLES */
 
+/* Reset */
+* {
+    padding:0; 
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* GENERAL LAYOUT */
+.container {
+    display: grid;
+    grid-template-rows: 0.25fr 1fr 0.25fr;
+    height: 100vh;
+}
+
+:root {
+    --fs-base: clamp(14px, 2vw, 18px); 
+    --fs-heading: clamp(18px, 4vw, 28px); 
+    --main-color:#F8FAFC; 
+    --main-pd:1rem; 
+}
+
+body {
+    font-size: var(--fs-base);
+}
+
+h1, h2 {
+    font-size: var(--fs-heading);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul li {
+    list-style-type: none;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-btn {
+    width: auto;
+    height: auto;
+}
+
+
+/* Hero section */
 #hero {
+    display: grid; 
+    grid-template-rows: 0.25fr 1fr;
+    gap: 1rem;
     background-image: url('/assets/images/top\ background\ image.jpg');
+}
+
+.upper-hero {
+    padding: 1rem;
+}
+
+.lower-hero {
+    width: 100%;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Header */
+
+header {
+    display: flex;
+    flex-wrap: wrap;   
+}
+
+header ul {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+/* Logo image */
+img[alt="clare weather logo"] {
+   max-width: 30px;
+  width: 100%;
+  height: auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    background-color:#9AA6B2;
+    min-width: 270px; 
+    border-radius: 5px;
+}
+
+.search input {
+    height: 1.5rem; 
+    border:0;
+    min-width: 240px;  
+    background-color: inherit;
+}
+
+.search input::placeholder {
+    text-align: center;
+    color: var(--main-color);
+
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.weather-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 1rem;
+
+  border: 1px solid #fff;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 1rem auto;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.symbol {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.temp-info h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.temp-info p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+}
+
+.details {
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.location {
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+
+
+/* MAIN CONTENT */
+#main-content-area {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem; 
+  background-color: var(--main-color);
+  padding: 5px;
+}
+
+
+.hourly-container {
+  background-color: yellow;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  gap: 1rem;             
+}
+
+.hour-card {
+  background-color: #111;    /* dark card background */
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;               /* responsive width inside yellow box */
+  max-width: 350px;         /* prevent overly wide cards */
+  min-height: 50px;
+}
+
+.hour-card {
+  flex: 1 1 auto;   
+  width: 100%;      
+  max-width: 350px;
+}
+
+.hour-card .item {
+  flex: 1;
+  text-align: center;
+}
+
+
+.daily-container {
+  background-color: green;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.daily-container .today {
+  font-weight: bold;
+  text-align: center;
+}
+
+.daily-container .big-weather-card {
+  background-color: #111;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+  padding: 1rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* split into two halves */
+  align-items: center;
+  gap: 1rem;
+}
+
+.big-weather-card .other-weather-metrics {
+  font-size: 0.9rem;
+}
+
+.big-weather-card .temperature {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+
+
+/* FOOTER */
+.footer-container {
+    display: grid;
+    grid-template-rows: 1fr 0.25fr; 
+    padding: 5px; 
+}
+
+.main-footer {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* left is 3x bigger than right */
+  gap: 1rem;
+}
+
+.left-main-footer {
+    background-color: lightgray; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: var(--main-pd);
+}
+
+.right-main-footer{ 
+    background-color: lightgreen;
+    padding: var(--main-pd);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.footer-box  ul {
+    display: flex;
+    flex-direction: column;
+    gap:0.25rem; 
+    
+}
+
+
+.footer-box h4 {
+    margin-bottom: 0.30rem;
+}
+
+.subscribe span {
+    display: flex;
+    gap: 2rem; 
+}
+
+.sm-button {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+footer {
+    display: flex;
+    width: 100%;
+    padding: var(--main-pd);
+    justify-content: space-between;
+}
+
+.right-footer ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+ul span {
+  margin-right: right 5px; 
+}
+
+
+
+/* FOR MOBILE */
+
+@media (max-width: 600px) {
+
+* {
+    max-width: 100%;
+  }
+  /* Force main grid to stack vertically */
+  #main-content-area {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stack header content vertically */
+  header ul {
+    flex-direction: column;
+    align-items: stretch; 
+    gap: 0.5rem;
+  }
+
+  .logo {
+    align-self: center;
+  }
+
+  /* Search bar adapts to small screens */
+  .search {
+    display: flex;
+    width: 100%;     /* take full available width */
+    min-width: unset; /* remove fixed 270px */
+  }
+
+  .search input {
+    flex: 1; 
+    max-width: 150px;
+  }
+
+  .search input::placeholder {
+    text-align: center;
+  }
+
+  .hourly-container,
+  .daily-container {
+    align-items: center;
+  }
+
+  .main-footer {
+    grid-template-columns: 1fr; 
+  }
+
+  .right-main-footer {
+    align-items: center;
+  }
 }
