@@ -7,11 +7,11 @@
     box-sizing: border-box;
 }
 
+
 /* GENERAL LAYOUT */
 .container {
     display: grid;
     grid-template-rows: 0.25fr 1fr 0.25fr;
-    height: 100vh;
 }
 
 :root {
@@ -53,7 +53,7 @@ ul li {
     display: grid; 
     grid-template-rows: 0.25fr 1fr;
     gap: 1rem;
-    background-image: url('/assets/images/top\ background\ image.jpg');
+    background-image: url('/assets/images/background-image.jpg'); 
 }
 
 .upper-hero {
@@ -181,7 +181,7 @@ img[alt="clare weather logo"] {
 
 
 .hourly-container {
-  background-color: yellow;
+  background-color: #F8FAFC; 
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -193,7 +193,7 @@ img[alt="clare weather logo"] {
 }
 
 .hour-card {
-  background-color: #111;    /* dark card background */
+  background-color: #9AA6B2;  
   color: white;
   border: 1px solid #555;
   border-radius: 4px;
@@ -220,7 +220,7 @@ img[alt="clare weather logo"] {
 
 
 .daily-container {
-  background-color: green;
+  background-color: var(--main-color); 
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -236,12 +236,11 @@ img[alt="clare weather logo"] {
 }
 
 .daily-container .big-weather-card {
-  background-color: #111;
-  color: white;
+  background-color: #9AA6B2; 
   border: 1px solid #555;
   border-radius: 6px;
   padding: 1rem;
-
+  color: white; 
   display: grid;
   grid-template-columns: 1fr 1fr; /* split into two halves */
   align-items: center;
@@ -272,17 +271,16 @@ img[alt="clare weather logo"] {
   display: grid;
   grid-template-columns: 2fr 1fr; /* left is 3x bigger than right */
   gap: 1rem;
+  background-color: #BCCCDC;
 }
 
 .left-main-footer {
-    background-color: lightgray; 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: var(--main-pd);
 }
 
 .right-main-footer{ 
-    background-color: lightgreen;
     padding: var(--main-pd);
     display: flex;
     flex-direction: column;
@@ -317,6 +315,7 @@ footer {
     width: 100%;
     padding: var(--main-pd);
     justify-content: space-between;
+    background-color: #D9EAFD; 
 }
 
 .right-footer ul {
