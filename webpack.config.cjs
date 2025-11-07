@@ -7,7 +7,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
-    clean: true, // cleans the dist folder before each build (optional but useful)
+    clean: true, 
   },
 
   module: {
@@ -34,4 +34,19 @@ module.exports = {
   ],
 
   mode: "development",
+
+  devServer: {
+  proxy: [
+    {
+      context: ["/weather"],
+      target: "http://localhost:3000",
+      changeOrigin: true,
+    },
+  ],
+  port: 8080,
+  hot: true,
+  open: true,
+},
+
 };
+
