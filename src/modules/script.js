@@ -9,8 +9,7 @@ async function getWeather(location) {
 
   console.log(weatherData);
 }
-
-getWeather(); 
+ 
 
 
 
