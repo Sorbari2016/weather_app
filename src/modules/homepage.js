@@ -23,7 +23,7 @@ function createDateTimeUI() {
     const today = currentDate();
     const now = currentTime()
 
-    dateElement.textContent = today; 
+    dateElement.textContent = `${today} ||`; 
     timeElement.textContent = now;
 }
 
