@@ -3,11 +3,15 @@
 // Create method to get data from the server
 async function getWeather(location) {
   const url = `http://localhost:3000/?location=${location ? location : 'Port Harcourt'}`;
-
+  
+  try {
   const response = await fetch(url);
   const weatherData = await response.json();
 
-  return weatherData; 
+  return weatherData;
+  } catch(error) {
+    console.error("Error fetching weather data", error); 
+  } 
 }
 
 
@@ -37,7 +41,25 @@ async function getWeatherForPeriod(location, datetime) {
   };
 }
 
+// Get weather icons from the icons folder
+async function loadWeatherIcon(iconName) {
+  try {
+    const module = await import(
+      `../assets/icons/${iconName}.png`
+    );
 
-export {getWeatherForPeriod};
+    return module.default;
+
+  } catch (error) {
+    const fallback = await import(
+      `../assets/icons/default.png`
+    );
+
+    return fallback.default;
+  }
+}
+
+
+export {getWeatherForPeriod, loadWeatherIcon};
  
 
