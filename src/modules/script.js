@@ -26,12 +26,12 @@ async function getWeatherForPeriod(location, datetime) {
   } else {
     throw new Error('Provide a valid date or time'); 
   }
- 
+  
   return {
     temp: conditions.temp,
     pressure: conditions.pressure,
     icon: conditions.icon,
-    description: conditions.condtion,
+    description: conditions.conditions,
     wind: conditions.windspeed,
     humidity: conditions.humidity,
   };
