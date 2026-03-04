@@ -1,5 +1,6 @@
 import { format, compareAsc } from "date-fns";
 import { getWeatherForPeriod, loadWeatherIcon } from "./script.js";
+import { showWeatherIcon } from "./javascript.js";
 
 
 // Create method to get current date and time 
@@ -39,12 +40,17 @@ async function loadDefaultWeather() {
   const defaultWeather =await getWeatherForPeriod(currentLocation, time); 
 
   const heroList = [...document.querySelector(".other-weather-metrics").firstElementChild.children];
-  const pressure = heroList[0].innerHTML = `Pressuer: <span>${defaultWeather.pressure}mb</span>`
+  const temperature = document.querySelector('.temperature');
+  const pressure = heroList[0].innerHTML = `Pressure: <span>${defaultWeather.pressure}mb</span>`
   const hummidity = heroList[1].innerHTML= `Humidity: <span>${defaultWeather.humidity}%</span>`
   const wind = heroList[2].innerHTML = `Wind: <span>${defaultWeather.wind} Km/h</span>`
+  temperature.textContent = defaultWeather.temp; 
 
   const icon = await loadWeatherIcon(defaultWeather.icon);
-  console.log(icon) 
+  const iconName = defaultWeather.icon;
+  
+  const iconElement = document.querySelector('.weather-symbol').firstElementChild; 
+  showWeatherIcon(icon,iconName,iconElement); 
 }
 
 loadDefaultWeather()
