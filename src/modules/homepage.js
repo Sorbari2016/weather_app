@@ -51,6 +51,9 @@ async function loadDefaultWeather() {
   
   const iconElement = document.querySelector('.weather-symbol').firstElementChild; 
   showWeatherIcon(icon,iconName,iconElement); 
+
+  const location = document.querySelector('.location'); 
+  location.textContent = defaultWeather.location; 
 }
 
 loadDefaultWeather()

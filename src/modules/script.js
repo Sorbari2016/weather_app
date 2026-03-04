@@ -32,6 +32,7 @@ async function getWeatherForPeriod(location, datetime) {
   }
   
   return {
+    location: location,
     temp: conditions.temp,
     pressure: conditions.pressure,
     icon: conditions.icon,
