@@ -58,5 +58,11 @@ async function loadDefaultWeather() {
 
 loadDefaultWeather()
 
+function addFooterYear() {
+  const currentYear = new Date().getFullYear();
+  document.getElementById('footer-year').textContent = currentYear; 
+}
+
+addFooterYear(); 
 
 
