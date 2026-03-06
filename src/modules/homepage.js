@@ -1,6 +1,5 @@
-import { format, compareAsc } from "date-fns";
+import { format, compareAsc, setDate } from "date-fns";
 import { getWeatherForPeriod, loadWeatherIcon } from "./script.js";
-import { showWeatherIcon } from "./javascript.js";
 
 
 // Create method to get current date and time 
@@ -32,37 +31,119 @@ function createDateTimeUI() {
 
 createDateTimeUI();
 
-async function loadDefaultWeather() {
-  const now = format(new Date(), "HH:mm:ss"); 
-  const time = now.split(':').shift() + ':00:00'
-  const currentLocation = 'Port Harcourt'; 
+// Show weather conditions on the hero section
+showWeather();
 
-  const defaultWeather =await getWeatherForPeriod(currentLocation, time); 
+async function showWeather() {
 
-  const heroList = [...document.querySelector(".other-weather-metrics").firstElementChild.children];
-  const temperature = document.querySelector('.temperature');
-  const pressure = heroList[0].innerHTML = `Pressure: <span>${defaultWeather.pressure}mb</span>`
-  const hummidity = heroList[1].innerHTML= `Humidity: <span>${defaultWeather.humidity}%</span>`
-  const wind = heroList[2].innerHTML = `Wind: <span>${defaultWeather.wind} Km/h</span>`
-  temperature.textContent = defaultWeather.temp; 
+  // Select the part of the dom to update dynamically 
+  const lowerHero = document.querySelector(".lower-hero");
+  const weatherCard = lowerHero.querySelector(".weather-card");
+  const city = lowerHero.querySelector(".location"); 
 
-  const icon = await loadWeatherIcon(defaultWeather.icon);
-  const iconName = defaultWeather.icon;
+  const renderLoadingComponent = () => {
+    weatherCard.innerHTML = `<p>Loading weather info...</p>`; 
+    city.textContent = '...';
+  }
+
+  const renderErrorComponent = (obj) => {
+    let errorMessage =""; 
+
+    if (obj.error.includes("No valid locations")) {
+      errorMessage = "We couldn't find that city. Please check spelling."; 
+    } else{
+      errorMessage = obj.error; 
+    }
+    clearWeatherCard(); 
+    weatherCard.innerHTML = 
+        `<div class = error-container> 
+            <img src="#" alt="#">
+            <p>${errorMessage}</p>
+        </div>`
+      city.textContent ='...'; 
+  }
+
+  const loadData = (data) => {
+  if (data.error) {
+    renderErrorComponent(data)
+  } else {
+    renderWeatherCard(data) 
+  }
+  }
+
+  renderLoadingComponent(); 
+
+  // Format time (example 18:45 -> 18:00:00) to match time in weather data, get default location
+  const now = format(new Date(), "HH:mm:ss");
+  const time = now.split(":").shift() + ":00:00";
+  const myLocation = "Port Harcourt";
+
+  // Query default weather
+  const defaultwWeather = await getWeatherForPeriod(myLocation, time); 
+
+  // Clear weather card, & info
+  const clearWeatherCard = () => {
+    weatherCard.innerHTML = ""; 
+    city.textContent = "";  
+  }  
+
+  // Create method to render dom with weather info 
+  const renderWeatherCard = async (data) => {
+    clearWeatherCard();  
+    
+    //build card
+    const iconImage = await loadWeatherIcon(data.icon);
+    weatherCard.innerHTML = 
+              `<div class="weather-symbol">
+                    <img src="${iconImage}" alt=${data.icon}>
+                </div>
+                <div class="temperature-condition">
+                  <p class="temperature">${data.tempt}</p>
+                  <p class="condition">${data.description}</p>
+                </div>
+                <div class="other-weather-metrics">
+                    <ul>
+                        <li>Presure: <span>${data.pressure}mb</span></li>
+                        <li>Humidity: <span>${data.humidity}%</span></li>
+                        <li>Wind: <span>${data.wind}Km/h</span></li>
+                      </ul>
+                </div>`;
+
+    // build locatin
+    city.textContent = data.location;
+  }
+
+  loadData(defaultwWeather); // load UI..
+
+  // add event lister to get the location user inputted
+  const searchElement = document.querySelector('input[type = "search"]');
+  searchElement.addEventListener("keydown", async (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      renderLoadingComponent(); 
+
+      const searchedLocation = searchElement.value.trim();
+      searchElement.value = "";
+
+      const searchedWeather = await getWeatherForPeriod(searchedLocation, time);
+
+      loadData(searchedWeather); // load UI..
   
-  const iconElement = document.querySelector('.weather-symbol').firstElementChild; 
-  showWeatherIcon(icon,iconName,iconElement); 
+    }
+  })
 
-  const location = document.querySelector('.location'); 
-  location.textContent = defaultWeather.location; 
 }
 
-loadDefaultWeather()
+
+// Add footer year
+addFooterYear(); 
 
 function addFooterYear() {
   const currentYear = new Date().getFullYear();
-  document.getElementById('footer-year').textContent = currentYear; 
+  document.getElementById("footer-year").textContent = currentYear;
 }
 
-addFooterYear(); 
+
 
 
