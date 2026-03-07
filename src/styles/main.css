@@ -167,7 +167,16 @@ img[alt="clare weather logo"] {
   font-size: 1.2rem;
 }
 
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.error-container img {
+  height: 60px;
+  width: 60px;
+}
 
 /* MAIN CONTENT */
 #main-content-area {
@@ -201,8 +210,8 @@ img[alt="clare weather logo"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;               /* responsive width inside yellow box */
-  max-width: 350px;         /* prevent overly wide cards */
+  width: 90%;               
+  max-width: 350px;        
   min-height: 50px;
 }
 
@@ -241,7 +250,7 @@ img[alt="clare weather logo"] {
   padding: 1rem;
   color: white; 
   display: grid;
-  grid-template-columns: 1fr 1fr; /* split into two halves */
+  grid-template-columns: 1fr 1fr; 
   align-items: center;
   gap: 1rem;
 }
@@ -268,7 +277,7 @@ img[alt="clare weather logo"] {
 
 .main-footer {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* left is 3x bigger than right */
+  grid-template-columns: 2fr 1fr; 
   gap: 1rem;
   background-color: #BCCCDC;
 }
@@ -365,6 +374,11 @@ ul span {
 
   .search input::placeholder {
     text-align: center;
+  }
+
+  .error-container img {
+    height: 40px;
+    width: 40px;
   }
 
   .hourly-container,
