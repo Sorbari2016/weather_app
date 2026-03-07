@@ -1,5 +1,6 @@
 import { format, compareAsc, setDate } from "date-fns";
 import { getWeatherForPeriod, loadWeatherIcon } from "./script.js";
+import errorIcon from "../assets/icons/error-weather.png";
 
 
 // Create method to get current date and time 
@@ -46,22 +47,23 @@ async function showWeather() {
     city.textContent = '...';
   }
 
-  const renderErrorComponent = (obj) => {
+  const renderErrorComponent = (data) => {
     let errorMessage =""; 
 
-    if (obj.error.includes("No valid locations")) {
+    if (data.error.includes("No valid locations")) {
       errorMessage = "We couldn't find that city. Please check spelling."; 
     } else{
-      errorMessage = obj.error; 
+      errorMessage = data.error; 
     }
     clearWeatherCard(); 
+    
     weatherCard.innerHTML = 
-        `<div class = error-container> 
-            <img src="#" alt="#">
+        `<div class ="error-container"> 
+            <img src="${errorIcon}" alt="error weather icon">
             <p>${errorMessage}</p>
         </div>`
       city.textContent ='...'; 
-  }
+    }
 
   const loadData = (data) => {
   if (data.error) {
