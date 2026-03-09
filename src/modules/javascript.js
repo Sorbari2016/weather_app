@@ -19,5 +19,22 @@ const createHourCard = (data) => {
          </li>`;
 }
 
+// Create a blueprint for hour weather data
+class HourlyWeather {
+ constructor(time, icon, desc) {
+     this.time = time; 
+     this.icon = icon; 
+     this.desc = desc; 
+  }
+}
 
-export {showWeatherIcon, createHourCard, convertToFahrenheit}
+// Create a list for the hourly data
+const hourlyWeatherData = [];
+
+// Create method in order to create an hourly data
+function addHourlyWeather(time, icon, desc){
+ const newHourData = new HourlyWeather(time, icon, desc); 
+ hourlyWeatherData.push(newHourData); 
+}
+
+export {showWeatherIcon, createHourCard, hourlyWeatherData, addHourlyWeather, convertToFahrenheit}
