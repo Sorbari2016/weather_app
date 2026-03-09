@@ -37,4 +37,34 @@ function addHourlyWeather(time, icon, desc){
  hourlyWeatherData.push(newHourData); 
 }
 
-export {showWeatherIcon, createHourCard, hourlyWeatherData, addHourlyWeather, convertToFahrenheit}
+// Utilities
+// Moves date to the next day
+const increaseByADay = (date) => {
+ const newDate = new Date(date); 
+ newDate.setDate(date.getDate() + 1); 
+ return newDate; 
+}
+
+// increase time by a certain interval
+const addHours = (timeStr, numberOfHours) => {
+  const [h, m] = timeStr.split(":");
+  const date = new Date();
+  date.setHours(parseInt(h), parseInt(m), 0);
+  date.setHours(date.getHours() + numberOfHours);
+  return (
+    date.getHours().toString().padStart(2, "0") +
+    ":" +
+    date.getMinutes().toString().padStart(2, "0")
+  );
+};
+
+
+export {
+  showWeatherIcon,
+  hourlyWeatherData,
+  createHourCard,
+  addHourlyWeather,
+  increaseByADay,
+  addHours,
+  convertToFahrenheit,
+};
