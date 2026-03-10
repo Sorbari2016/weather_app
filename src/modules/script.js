@@ -1,6 +1,8 @@
 // APP LOGIC 
 
 // Create method to get data from the server
+let weatherData = null; 
+
 async function getWeather(location) {
   const url = `http://localhost:3000/?location=${location}`;
 
@@ -10,49 +12,53 @@ async function getWeather(location) {
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(result.message || "Something went wrong");
+      throw new Error(result.message || "Failed to fetch weather");
     }
-    return result.data;
+    weatherData = result.data; 
+    return weatherData;
 
   } catch (error) {
     console.error("Error fetching weather data:", error.message);  
 
-    return {
+    return weatherData = {
       error: error.message
     };
   }
 }
 
-async function getWeatherForPeriod(location, datetime) {
-  const dateFormat = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
-  const timeFormat = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/;
+// Create method to get the current weather conditions
+function getDailyForecast(date) {
+  
+  if (weatherData.error) {
+    return weatherData;
+  }
+  const day = weatherData?.days.find(
+    (data) => data.datetime === date,
+  );
 
-    const data = await getWeather(location);
-    
-    if (data.error) {
-      return data; 
-    }
+  return {
+    location: weatherData.address,
+    tempt: day.temp,
+    pressure: day.pressure,
+    icon: day.icon,
+    description: day.conditions,
+    wind: day.windspeed,
+    humidity: day.humidity,
+  };
+}
 
-    const forecast = data?.days;
+function getHourlyForecast(hour) {
+  
+  if (weatherData.error) {
+    return weatherData;
+  }
 
-    let conditions;
-    if (dateFormat.test(datetime)) {
-      conditions = forecast.find((data) => data.datetime === datetime);
-    } else if (timeFormat.test(datetime)) {
-      conditions = forecast[0].hours.find((data) => data.datetime === datetime);
-    } else {
-      throw new Error("Provide a valid date or time");
-    }
-
-    return {
-      location: location,
-      tempt: conditions.temp,
-      pressure: conditions.pressure,
-      icon: conditions.icon,
-      description: conditions.conditions,
-      wind: conditions.windspeed,
-      humidity: conditions.humidity,
-    };
+  const hourData = weatherData?.days[0]?.hours.find((
+    h => h.datetime === hour)); 
+  return {
+    icon: hourData.icon,
+    desc: hourData.condition, 
+  }
 }
 
 // Get weather icons from the icons folder
@@ -74,6 +80,6 @@ async function loadWeatherIcon(iconName) {
 }
 
 
-export {getWeatherForPeriod, loadWeatherIcon};
+export {getWeather, getDailyForecast, getHourlyForecast, loadWeatherIcon};
  
 

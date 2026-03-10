@@ -1,5 +1,5 @@
 import { format, compareAsc, setDate } from "date-fns";
-import { getWeatherForPeriod, loadWeatherIcon } from "./script.js";
+import { getWeather, getDailyForecast, getHourlyForecast, loadWeatherIcon } from "./script.js";
 import errorIcon from "../assets/icons/error-weather.png";
 import {
   currentDate,
@@ -66,11 +66,13 @@ async function showWeather() {
 
   // Format time (example 18:45 -> 18:00:00) to match time in weather data, get default location
   const now = format(new Date(), "HH:mm:ss");
+  const today = format(new Date(), "yyyy-MM-dd"); 
   const time = now.split(":").shift() + ":00:00";
   const myLocation = "Port Harcourt";
 
   // Query default weather
-  const defaultwWeather = await getWeatherForPeriod(myLocation, time); 
+  await getWeather(myLocation); 
+  const defaultwWeather = getDailyForecast(today); 
 
   // Clear weather card, & info
   const clearWeatherCard = () => {
