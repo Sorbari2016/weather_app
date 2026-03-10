@@ -1,12 +1,13 @@
 import { format, compareAsc, setDate } from "date-fns";
 import { getWeather, getDailyForecast, getHourlyForecast, loadWeatherIcon } from "./script.js";
-import errorIcon from "../assets/icons/error-weather.png";
 import {
   currentDate,
   currentTime,
   createHourCard,
   increaseByADay,
-  addHours
+  addHours,
+  loadHeroComponent,
+  renderLoadingComponent
 } from "./javascript.js"; 
 
 // Create time and date UI for hero section
@@ -25,109 +26,39 @@ function createDateTimeUI() {
 showWeather();
 
 async function showWeather() {
-
-  // Select the part of the dom to update dynamically 
-  const lowerHero = document.querySelector(".lower-hero");
-  const weatherCard = lowerHero.querySelector(".weather-card");
-  const city = lowerHero.querySelector(".location"); 
-
-  const renderLoadingComponent = () => {
-    weatherCard.innerHTML = `<p>Loading weather info...</p>`; 
-    city.textContent = '...';
-  }
-
-  const renderErrorComponent = (data) => {
-    let errorMessage =""; 
-
-    if (data.error.includes("No valid locations")) {
-      errorMessage = "We couldn't find that city. Please check spelling."; 
-    } else{
-      errorMessage = data.error; 
-    }
-    clearWeatherCard(); 
-    
-    weatherCard.innerHTML = 
-        `<div class ="error-container"> 
-            <img src="${errorIcon}" alt="error weather icon">
-            <p>${errorMessage}</p>
-        </div>`
-      city.textContent ='...'; 
-    }
-
-  const loadData = (data) => {
-  if (data.error) {
-    renderErrorComponent(data)
-  } else {
-    renderWeatherCard(data) 
-  }
-  }
-
-  renderLoadingComponent(); 
-
-  // Format time (example 18:45 -> 18:00:00) to match time in weather data, get default location
-  const now = format(new Date(), "HH:mm:ss");
-  const today = format(new Date(), "yyyy-MM-dd"); 
-  const time = now.split(":").shift() + ":00:00";
+  // Store date and default location
+  const today = format(new Date(), "yyyy-MM-dd");
   const myLocation = "Port Harcourt";
 
-  // Query default weather
-  await getWeather(myLocation); 
-  const defaultwWeather = getDailyForecast(today); 
+  // load default message
+  renderLoadingComponent(); 
 
-  // Clear weather card, & info
-  const clearWeatherCard = () => {
-    weatherCard.innerHTML = ""; 
-    city.textContent = "";  
-  }  
+  // default weather
+  await getWeather(myLocation);
+  const defaultWeather = getDailyForecast(today);
 
-  // Create method to render dom with weather info 
-  const renderWeatherCard = async (data) => {
-    clearWeatherCard();  
-    
-    //build card
-    const iconImage = await loadWeatherIcon(data.icon);
-    weatherCard.innerHTML = 
-              `<div class="weather-symbol">
-                    <img src="${iconImage}" alt=${data.icon}>
-                </div>
-                <div class="temperature-condition">
-                  <p class="temperature">${data.tempt}</p>
-                  <p class="condition">${data.description}</p>
-                </div>
-                <div class="other-weather-metrics">
-                    <ul>
-                        <li>Presure: <span>${data.pressure}mb</span></li>
-                        <li>Humidity: <span>${data.humidity}%</span></li>
-                        <li>Wind: <span>${data.wind}Km/h</span></li>
-                      </ul>
-                </div>`;
+  loadHeroComponent(defaultWeather);
 
-    // build locatin
-    city.textContent = data.location;
-  }
-
-  loadData(defaultwWeather); // load UI..
-
-  // add event lister to get the location user inputted
+  // Queried weather
   const searchElement = document.querySelector('input[type = "search"]');
   searchElement.addEventListener("keydown", async (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
 
+      // load default message
       renderLoadingComponent(); 
 
-      const searchedLocation = searchElement.value.trim();
+      const queriedLocation = searchElement.value.trim();
+      await getWeather(queriedLocation);
+
       searchElement.value = "";
 
-      const searchedWeather = await getWeatherForPeriod(searchedLocation, time);
+      const queriedWeather = getDailyForecast(today);
 
-      loadData(searchedWeather); // load UI..
-  
+      loadHeroComponent(queriedWeather);
     }
-  })
-
+  });
 }
-
 
 // Add footer year
 addFooterYear(); 

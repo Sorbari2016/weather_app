@@ -1,9 +1,83 @@
 import { format} from "date-fns";
+import errorIcon from "../assets/icons/error-weather.png";
+import { loadWeatherIcon } from "./script.js";
 
 // Create method to convert temperature to Fahrenheit
 function convertToFahrenheit(tempt) {
     return Math.round((tempt * (9/5) + 32) * 10) / 10
 };
+
+// UI Blocks: 
+// Hero section UI components
+const lowerHero = document.querySelector(".lower-hero");
+const weatherCard = lowerHero.querySelector(".weather-card");
+const city = lowerHero.querySelector(".location");
+
+
+// create a loading component to update UI, which loads first
+const renderLoadingComponent = () => {
+  weatherCard.innerHTML = `<p>Loading weather info...</p>`;
+  city.textContent = "...";
+};
+
+
+const loadHeroComponent = (data) => {
+  // clear weather card
+  const clearWeatherCard = () => {
+    weatherCard.innerHTML = "";
+    city.textContent = "";
+  };
+
+  // create an error component when data retrieval isnt successful
+  const renderErrorComponent = (data) => {
+    let errorMessage = "";
+
+    if (data.error.includes("No valid locations")) {
+      errorMessage = "We couldn't find that city. Please check spelling.";
+    } else {
+      errorMessage = data.error;
+    }
+    clearWeatherCard();
+
+    weatherCard.innerHTML = `<div class ="error-container"> 
+            <img src="${errorIcon}" alt="error weather icon">
+            <p>${errorMessage}</p>
+        </div>`;
+    city.textContent = "...";
+  };
+
+  // create a weather card when data retrieval is successful
+  const renderCardComponent = async (data) => {
+    clearWeatherCard();
+
+    //build card
+    const iconImage = await loadWeatherIcon(data.icon);
+    weatherCard.innerHTML = `<div class="weather-symbol">
+                    <img src="${iconImage}" alt=${data.icon}>
+                </div>
+                <div class="temperature-condition">
+                  <p class="temperature">${data.tempt}</p>
+                  <p class="condition">${data.description}</p>
+                </div>
+                <div class="other-weather-metrics">
+                    <ul>
+                        <li>Presure: <span>${data.pressure}mb</span></li>
+                        <li>Humidity: <span>${data.humidity}%</span></li>
+                        <li>Wind: <span>${data.wind}Km/h</span></li>
+                      </ul>
+                </div>`;
+
+    // build locatin
+    city.textContent = data.location;
+  };
+
+  if (data.error) {
+    renderErrorComponent(data); // load error if query failed
+  } else {
+    renderCardComponent(data); // load weather conditions if query was succesful.
+  }
+};
+
 
 // Create a reusable UI block for creation of weather cards for each time interval
 const createHourCard = async (data) => {
@@ -76,4 +150,6 @@ export {
   increaseByADay,
   addHours,
   convertToFahrenheit,
+  renderLoadingComponent,
+  loadHeroComponent
 };
