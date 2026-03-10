@@ -6,8 +6,8 @@ function convertToFahrenheit(tempt) {
 };
 
 // Create a reusable UI block for creation of weather cards for each time interval
-const createHourCard = (data) => {
-  let iconImage = loadWeatherIcon(data.icon); 
+const createHourCard = async (data) => {
+  let iconImage = await loadWeatherIcon(data.icon); 
   return `
 	    <li class="hour-card">
               <span>
