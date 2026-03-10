@@ -1,3 +1,4 @@
+import { format} from "date-fns";
 
 // Create method to convert temperature to Fahrenheit
 function convertToFahrenheit(tempt) {
@@ -28,21 +29,14 @@ class HourlyWeather {
   }
 }
 
-// Create a list for the hourly data
-const hourlyWeatherData = [];
-
-// Create method in order to create an hourly data
-function addHourlyWeather(time, icon, desc){
- const newHourData = new HourlyWeather(time, icon, desc); 
- hourlyWeatherData.push(newHourData); 
-}
 
 // Utilities
+
 // Moves date to the next day
 const increaseByADay = (date) => {
- const newDate = new Date(date); 
- newDate.setDate(date.getDate() + 1); 
- return newDate; 
+ const newDate = new Date(date);  
+ newDate.setDate(newDate.getDate() + 1); 
+ return format(newDate, "yyyy-MM-dd"); 
 }
 
 // increase time by a certain interval
@@ -60,10 +54,7 @@ const addHours = (timeStr, numberOfHours) => {
 
 
 export {
-  showWeatherIcon,
-  hourlyWeatherData,
   createHourCard,
-  addHourlyWeather,
   increaseByADay,
   addHours,
   convertToFahrenheit,
