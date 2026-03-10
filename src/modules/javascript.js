@@ -2,8 +2,8 @@ import { format} from "date-fns";
 
 // Create method to convert temperature to Fahrenheit
 function convertToFahrenheit(tempt) {
-    return Math.round((tempt * (9/5) + 32) * 10) / 10 ; 
-}
+    return Math.round((tempt * (9/5) + 32) * 10) / 10
+};
 
 // Create a reusable UI block for creation of weather cards for each time interval
 const createHourCard = (data) => {
@@ -27,17 +27,33 @@ class HourlyWeather {
      this.icon = icon; 
      this.desc = desc; 
   }
-}
+};
 
 
 // Utilities
+
+// Create method to get current date and time 
+
+const currentDate = () => {
+  let now = new Date();
+  let formattedDate = format(now, "eeee do MMMM");
+
+  return formattedDate;
+};
+
+const currentTime = () => {
+  let now = new Date();
+  let formattedTime = format(now, "h:mm a");
+
+  return formattedTime;
+};
 
 // Moves date to the next day
 const increaseByADay = (date) => {
  const newDate = new Date(date);  
  newDate.setDate(newDate.getDate() + 1); 
  return format(newDate, "yyyy-MM-dd"); 
-}
+};
 
 // increase time by a certain interval
 const addHours = (timeStr, numberOfHours) => {
@@ -54,6 +70,8 @@ const addHours = (timeStr, numberOfHours) => {
 
 
 export {
+  currentDate,
+  currentTime,
   createHourCard,
   increaseByADay,
   addHours,

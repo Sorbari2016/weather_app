@@ -2,40 +2,24 @@ import { format, compareAsc, setDate } from "date-fns";
 import { getWeatherForPeriod, loadWeatherIcon } from "./script.js";
 import errorIcon from "../assets/icons/error-weather.png";
 import {
+  currentDate,
+  currentTime,
   createHourCard,
   increaseByADay,
   addHours
 } from "./javascript.js"; 
 
-
-// Create method to get current date and time 
-
-const currentDate = () => {
-  let now = new Date();
-  let formattedDate = format(now, "eeee do MMMM");
-
-  return formattedDate;
-};
-
-const currentTime = () => {
-  let now = new Date();
-  let formattedTime = format(now, "h:mm a");
-
-  return formattedTime;
-};
+// Create time and date UI for hero section
+createDateTimeUI();
 
 function createDateTimeUI() {
-    const dateElement = document.querySelector('.current-date');
-    const timeElement = document.querySelector('.local-time');
-
     const today = currentDate();
     const now = currentTime()
 
-    dateElement.textContent = `${today} ||`; 
-    timeElement.textContent = now;
+    document.querySelector('.current-date').textContent = `${today} ||`;
+    document.querySelector('.local-time').textContent = now; 
 }
 
-createDateTimeUI();
 
 // Show weather conditions on the hero section
 showWeather();
@@ -143,38 +127,6 @@ async function showWeather() {
 }
 
 
-// Create a method to get hourly weather data
-async function getHourlyWeather(location) {
- const currentTime = new Date().getHours() + ':00'; 
- const currentDate = format(new Date(), 'yyyy-MM-dd'); 
- 
- // get complete weather data
- const weatherData = await getWeather(location);
- 
- //get the time, icon, & conditions for currentDate 
- const todayWeatherData = weatherData?.days[0]?.hours
-
- //get the time, icon, & conditions for the nextDate
- const nextDayWeatherData = weatherData?.days.find(data => data.datetime === time); 
- 
- // first interval: currentTime + 1 Hour
- const firstInterval = addHours(currentTime, 1); 
-
- // second interval: first interval + 3 Hours
- const secondInterval = addHours(firstInterval, 3); 
-
- // third interval: second interval + 3 Hours
- const thirdInterval = addHours(secondInterval, 3); 
- 
- // fourth interval: third interval + 3 Hours
- const fourthInterval = addHours(thirdInterval, 3);
-
- // first interval: fourth interval + 3 Hours
- const fifthInterval = addHours(fourthInterval, 3); 
-  
-}
-
-
 // Add footer year
 addFooterYear(); 
 
@@ -182,7 +134,3 @@ function addFooterYear() {
   const currentYear = new Date().getFullYear();
   document.getElementById("footer-year").textContent = currentYear;
 }
-
-
-
-
