@@ -38,12 +38,12 @@ function getDailyForecast(date) {
 
   return {
     location: weatherData.address,
-    tempt: day.temp,
-    pressure: day.pressure,
+    tempt: parseInt(day.temp),
+    pressure: parseInt(day.pressure),
     icon: day.icon,
     description: day.conditions,
-    wind: day.windspeed,
-    humidity: day.humidity,
+    wind: parseInt(day.windspeed),
+    humidity: parseInt(day.humidity),
   };
 }
 
