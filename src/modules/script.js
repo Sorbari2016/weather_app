@@ -77,20 +77,6 @@ function getHourlyForecastByDate(date, hour) {
     desc: hourData.condition,
   };
 }
-function getHourlyForecastByDate(date, hour) {
-  if (weatherData.error) {
-    return weatherData;
-  }
-
-  const dayData = weatherData?.days.find((data) => data.datetime === date);
-
-  const hourData = dayData.hours.find((h) => h.datetime === hour);
-
-  return {
-    icon: hourData.icon,
-    desc: hourData.condition,
-  };
-}
 
 
 // Get weather icons from the icons folder

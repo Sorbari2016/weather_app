@@ -60,6 +60,28 @@ async function showWeather() {
   });
 }
 
+function showHourlyWeather() {
+  // select the list container
+  const hourlyContainer = document.querySelector('.hourly-container');
+
+  // display time
+  const showTime = () => {
+    hourlyContainer.querySelector('.local-time').textContent =
+      format(new Date(), "HH:mm:ss 'GMT'XXX");
+  };
+
+  showTime();
+
+  setInterval(() => {
+    showTime();
+  }, 1000);
+
+  // Select the list container
+  const listContainer = hourlyContainer.querySelector('ul'); 
+}
+
+showHourlyWeather(); 
+
 // Add footer year
 addFooterYear(); 
 
