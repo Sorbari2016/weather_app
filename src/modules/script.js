@@ -26,7 +26,7 @@ async function getWeather(location) {
   }
 }
 
-// Create method to get the current weather conditions
+// Create method to get daily weather conditions
 function getDailyForecast(date) {
   
   if (weatherData.error) {
@@ -47,6 +47,7 @@ function getDailyForecast(date) {
   };
 }
 
+// Create function to get hourly forecast
 function getHourlyForecast(hour) {
   
   if (weatherData.error) {
@@ -60,6 +61,37 @@ function getHourlyForecast(hour) {
     desc: hourData.condition, 
   }
 }
+
+// Create function to get hourly forecast by a certain date
+function getHourlyForecastByDate(date, hour) {
+  if (weatherData.error) {
+    return weatherData;
+  }
+
+  const dayData = weatherData?.days.find((data) => data.datetime === date);
+
+  const hourData = dayData.hours.find((h) => h.datetime === hour);
+
+  return {
+    icon: hourData.icon,
+    desc: hourData.condition,
+  };
+}
+function getHourlyForecastByDate(date, hour) {
+  if (weatherData.error) {
+    return weatherData;
+  }
+
+  const dayData = weatherData?.days.find((data) => data.datetime === date);
+
+  const hourData = dayData.hours.find((h) => h.datetime === hour);
+
+  return {
+    icon: hourData.icon,
+    desc: hourData.condition,
+  };
+}
+
 
 // Get weather icons from the icons folder
 async function loadWeatherIcon(iconName) {
@@ -80,6 +112,12 @@ async function loadWeatherIcon(iconName) {
 }
 
 
-export {getWeather, getDailyForecast, getHourlyForecast, loadWeatherIcon};
+export {
+  getWeather, 
+  getDailyForecast, 
+  getHourlyForecast, 
+  loadWeatherIcon,
+  getHourlyForecastByDate
+};
  
 
