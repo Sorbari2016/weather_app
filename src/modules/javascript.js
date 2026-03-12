@@ -142,6 +142,34 @@ const addHours = (timeStr, numberOfHours) => {
   );
 };
 
+
+// Create method to build a list item and push to list array 
+const createListItem = (time, step) => {
+  // check currentTime & date
+  let now = new Date();
+  currentTime = now.getHours() + ":00";
+  currentDate = format(now, "yyyy-MM-dd");
+
+  // increment time
+  let increasedTime = addHours(time, step);
+
+  // get data
+  let data;
+
+  if (increasedTime > currentTime) {
+    data = getHourlyForecast(increasedTime + ":00");
+  } else {
+    let newDate = increaseByADay(currentDate);
+    data = getHourlyForecastByDate(increasedTime + ":00");
+  }
+
+  // create list
+  addHourlyData(increasedTime, data.icon, data.desc);
+
+  return increasedTime;
+};
+
+
 // Create a list for hourly data
 const createHourlyWeatherList = (data) => {
   //create empty list
