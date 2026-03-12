@@ -12,6 +12,10 @@ import {
 // Create time and date UI for hero section
 createDateTimeUI();
 
+setInterval(() => {
+    createDateTimeUI();
+  }, 1000);
+
 function createDateTimeUI() {
     const today = currentDate();
     const now = currentTime()
@@ -37,7 +41,7 @@ async function showWeather() {
   const defaultWeather = getDailyForecast(today);
 
   loadHeroComponent(defaultWeather);
-  loadHourComponent();
+  loadHourlyComponent();
 
   // Queried weather
   const searchElement = document.querySelector('input[type = "search"]');
@@ -56,12 +60,12 @@ async function showWeather() {
       const queriedWeather = getDailyForecast(today);
 
       loadHeroComponent(queriedWeather);
-      loadHourComponent();
+      loadHourlyComponent();
     }
   });
 }
 
-async function loadHourComponent() {
+async function loadHourlyComponent() {
   // select the list container
   const hourlyContainer = document.querySelector('.hourly-container');
 
