@@ -145,11 +145,6 @@ const addHours = (timeStr, numberOfHours) => {
 
 // Create method to build a list item and push to list array 
 const createListItem = (time, step) => {
-  // check currentTime & date
-  let now = new Date();
-  currentTime = now.getHours() + ":00";
-  currentDate = format(now, "yyyy-MM-dd");
-
   // increment time
   let increasedTime = addHours(time, step);
 
@@ -171,7 +166,12 @@ const createListItem = (time, step) => {
 
 
 // Create a list for hourly data
-const createHourlyWeatherList = (data) => {
+const createHourlyWeatherList = () => {
+  // check currentTime & date
+  let now = new Date();
+  currentTime = now.getHours() + ":00";
+  currentDate = format(now, "yyyy-MM-dd");
+
   //create empty list
   const hourlyData = [];
 
