@@ -142,6 +142,28 @@ const addHours = (timeStr, numberOfHours) => {
   );
 };
 
+// Create a list for hourly data
+const createHourlyWeatherList = (data) => {
+  //create empty list
+  const hourlyData = [];
+
+  // create method to add each list item to the empty dataset.
+  let addHourlyData = (time, icon, desc) => {
+    let newHourData = new HourlyWeather(time, icon, desc);
+    hourlyData.push(newHourData);
+  };
+
+  // create the list items
+  const firstInterval = createListItem(currentTime, 1); // current time + 1
+  const secondInterval = createListItem(firstInterval, 3); // first int + 3
+  const thirdInterval = createListItem(secondInterval, 3); // second int + 3
+  const fourthInterval = createListItem(thirdInterval, 3); // third int + 3
+  const fifthInterval = createListItem(fourthInterval, 3); // fourth int + 3
+
+  return hourlyData;
+};
+
+
 
 export {
   currentDate,
