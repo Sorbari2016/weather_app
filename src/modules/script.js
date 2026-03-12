@@ -58,7 +58,7 @@ function getHourlyForecast(hour) {
     h => h.datetime === hour)); 
   return {
     icon: hourData.icon,
-    desc: hourData.condition, 
+    desc: hourData.conditions, 
   }
 }
 
@@ -68,13 +68,13 @@ function getHourlyForecastByDate(date, hour) {
     return weatherData;
   }
 
-  const dayData = weatherData?.days.find((data) => data.datetime === date);
+  const dayData = weatherData?.days.find((data) => data.datetime === date); 
 
   const hourData = dayData.hours.find((h) => h.datetime === hour);
 
   return {
     icon: hourData.icon,
-    desc: hourData.condition,
+    desc: hourData.conditions,
   };
 }
 

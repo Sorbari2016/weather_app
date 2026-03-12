@@ -1,6 +1,6 @@
 import { format} from "date-fns";
 import errorIcon from "../assets/icons/error-weather.png";
-import { loadWeatherIcon } from "./script.js";
+import { loadWeatherIcon, getHourlyForecast, getHourlyForecastByDate } from "./script.js";
 
 // Create method to convert temperature to Fahrenheit
 function convertToFahrenheit(tempt) {
@@ -87,9 +87,9 @@ const createHourCard = async (data) => {
               <span>
                     <div class="item interval">${data.time}</div>
                     <div class="item weather-symbol">
-                        <img src="${iconImage} alt="${data.icon}">
+                        <img src="${iconImage}" alt="${data.icon}">
                     </div>
-                    <div class="item description">${data.description}</div>
+                    <div class="item description">${data.desc}</div>
                 </span>
          </li>`;
 }
@@ -143,34 +143,12 @@ const addHours = (timeStr, numberOfHours) => {
 };
 
 
-// Create method to build a list item and push to list array 
-const createListItem = (time, step) => {
-  // increment time
-  let increasedTime = addHours(time, step);
-
-  // get data
-  let data;
-
-  if (increasedTime > currentTime) {
-    data = getHourlyForecast(increasedTime + ":00");
-  } else {
-    let newDate = increaseByADay(currentDate);
-    data = getHourlyForecastByDate(increasedTime + ":00");
-  }
-
-  // create list
-  addHourlyData(increasedTime, data.icon, data.desc);
-
-  return increasedTime;
-};
-
-
 // Create a list for hourly data
 const createHourlyWeatherList = () => {
   // check currentTime & date
   let now = new Date();
-  currentTime = now.getHours() + ":00";
-  currentDate = format(now, "yyyy-MM-dd");
+  let currentTime = now.getHours() + ":00";
+  let currentDate = format(now, "yyyy-MM-dd");
 
   //create empty list
   const hourlyData = [];
@@ -179,6 +157,27 @@ const createHourlyWeatherList = () => {
   let addHourlyData = (time, icon, desc) => {
     let newHourData = new HourlyWeather(time, icon, desc);
     hourlyData.push(newHourData);
+  };
+
+  // Create method to build a list item and push to list array
+  const createListItem = (time, step) => {
+    // increment time
+    let increasedTime = addHours(time, step);
+
+    // get data
+    let data;
+
+    if (increasedTime > currentTime) {
+      data = getHourlyForecast(increasedTime + ":00");
+    } else {
+      let newDate = increaseByADay(currentDate);
+      data = getHourlyForecastByDate(newDate, increasedTime + ":00");
+    }
+
+    // create list
+    addHourlyData(increasedTime, data.icon, data.desc);
+
+    return increasedTime;
   };
 
   // create the list items
@@ -197,8 +196,7 @@ export {
   currentDate,
   currentTime,
   createHourCard,
-  increaseByADay,
-  addHours,
+  createHourlyWeatherList,
   convertToFahrenheit,
   renderLoadingComponent,
   loadHeroComponent

@@ -4,8 +4,7 @@ import {
   currentDate,
   currentTime,
   createHourCard,
-  increaseByADay,
-  addHours,
+  createHourlyWeatherList,
   loadHeroComponent,
   renderLoadingComponent
 } from "./javascript.js"; 
@@ -38,6 +37,7 @@ async function showWeather() {
   const defaultWeather = getDailyForecast(today);
 
   loadHeroComponent(defaultWeather);
+  loadHourComponent();
 
   // Queried weather
   const searchElement = document.querySelector('input[type = "search"]');
@@ -56,11 +56,12 @@ async function showWeather() {
       const queriedWeather = getDailyForecast(today);
 
       loadHeroComponent(queriedWeather);
+      loadHourComponent();
     }
   });
 }
 
-function showHourlyWeather() {
+async function loadHourComponent() {
   // select the list container
   const hourlyContainer = document.querySelector('.hourly-container');
 
@@ -76,11 +77,21 @@ function showHourlyWeather() {
     showTime();
   }, 1000);
 
-  // Select the list container
+  // select the list container
   const listContainer = hourlyContainer.querySelector('ul'); 
+
+  // get list
+  const hourlyData = createHourlyWeatherList(); 
+
+  // wait for all cards to be ready 
+  const cardsHtml = await Promise.all(
+  hourlyData.map(data => createHourCard(data))
+  );
+
+  // create cards
+  listContainer.innerHTML = cardsHtml.join('');
 }
 
-showHourlyWeather(); 
 
 // Add footer year
 addFooterYear(); 
