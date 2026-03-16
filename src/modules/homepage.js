@@ -8,6 +8,8 @@ import {
   loadHeroComponent,
   renderLoadingComponent
 } from "./javascript.js"; 
+import {next,previous, slideShow,changeSlideByIndicator} from "clem-drop-carousel"
+ 
 
 // Create time and date UI for hero section
 createDateTimeUI();
@@ -95,6 +97,11 @@ async function loadHourlyComponent() {
   // create cards
   listContainer.innerHTML = cardsHtml.join('');
 }
+
+next();
+previous();
+slideShow(10000);
+changeSlideByIndicator()
 
 
 // Add footer year
