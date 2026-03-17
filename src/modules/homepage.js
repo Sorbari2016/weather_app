@@ -98,10 +98,6 @@ async function loadHourlyComponent() {
   listContainer.innerHTML = cardsHtml.join('');
 }
 
-next();
-previous();
-slideShow(10000);
-changeSlideByIndicator()
 
 
 // Add footer year

@@ -1,5 +1,7 @@
 import { format} from "date-fns";
 import errorIcon from "../assets/icons/error-weather.png";
+import nextIcon from "../assets/images/next.png"; 
+import previousIcon from "../assets/images/previous.png"; 
 import { loadWeatherIcon, getHourlyForecast, getHourlyForecastByDate } from "./script.js";
 
 // Create method to convert temperature to Fahrenheit
@@ -102,6 +104,65 @@ class HourlyWeather {
      this.desc = desc; 
   }
 };
+
+
+// Create method to form carousel html slides 
+const createCarouselSlide = async (data) => {
+  const iconImage = await loadWeatherIcon(data.icon); 
+  return `
+ 	        <div class="carousel-slide">
+                  <div class="number-text">${data.pos}</div>
+                  <div class="weather-card big-weather-card">
+                          <div class="other-weather-metrics">
+                              <ul>
+                                  <li>Pressure: ${data.pres}</li>
+                                  <li>Humidity: ${data.hum}</li>
+                                  <li>Wind: ${data.wind}</li>
+                              </ul>
+                          </div>
+                  </div>
+                  <div class="temperature">${data.tempt}</div>
+                          <div class="weather-symbol">
+                              <img src="${iconImage}" alt="${data.icon}">
+                          </div>
+          </div>`
+  }
+
+// Create indicator button
+const createIndicatorButton = (className) => {
+  return `
+     <button type ="button" class="${className}"></button>`
+}
+
+// Create indicator html
+const createCarouselIndicator = (list) => {
+   const carouselIndicator = document.createElement("div"); 
+   carouselIndicator.classList.add("carousel-indicator"); 
+
+    list.forEach((className) => {
+      const btn = createIndicatorButton(className); 
+
+     carouselIndicator.appendChild(btn); 
+    })
+
+   return carouselIndicator;   
+}
+
+// Create the carousel navigation
+const carouselNavigation = () => {
+  return `
+     <div class="carousel-nav">
+              <button type="button" class="prev">
+                  <img src="${previousIcon}" alt="previous icon">
+              </button>
+              <button type="button" class="next">
+                  <img src="${nextIcon}" alt="next icon">
+              </button>
+     </div>`
+}
+
+
+
 
 
 // Utilities
