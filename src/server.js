@@ -13,6 +13,8 @@ const PORT = 3000;
 
 // Use CORS
 app.use(cors());
+
+// Parse incoming request data
 app.use(express.json());
 
 // Store the store main endpint of Visual crossing API 
