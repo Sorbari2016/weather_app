@@ -1,5 +1,5 @@
 {
-  "name": "todolist",
+  "name": "Weather app",
   "version": "1.0.0",
   "description": "Todo List is simple web app, where you can create, read, edit and delete your tasks or todo items",
   "main": "index.js",
@@ -12,13 +12,24 @@
   "author": "Clematins Nwiibee",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "clem-drop-carousel": "^1.0.1",
     "css-loader": "^7.1.2",
     "date-fns": "^4.4.0",
+    "eslint": "^9.39.5",
+    "eslint-webpack-plugin": "^6.0.0",
+    "globals": "^17.13.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
+    "nodemon": "^3.1.14",
     "style-loader": "^4.0.0",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1"
   }
 }

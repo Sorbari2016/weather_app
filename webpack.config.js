@@ -1,6 +1,8 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const ESLintPlugin = require("eslint-webpack-plugin"); // import the ESLint Webpack Plugin
+
 module.exports = {
   entry: "./src/index.js",
 
@@ -30,6 +32,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/template.html",
+    }),
+    new ESLintPlugin({
+      extensions: ["js", "jsx", "ts", "tsx"], // files to lint
+      fix: true, // automatically fix formatting issues on save
     }),
   ],
 
