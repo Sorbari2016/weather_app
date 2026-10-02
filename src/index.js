@@ -1,8 +1,8 @@
 // ENTRY FILE
 
 // Styling:
-import "./styles/general.css";
 import "./styles/main.css";
+import "./styles/general.css";
 import "./styles/component.css";
 
 // Dependencies
