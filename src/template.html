@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>to notdo</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Static part -->
+    <div id="container">
+      <header id="main-header">
+        <button id="hamburger-btn">
+          <img src="../assets/icons/hamburger.png" alt="hamburger icon" />
+        </button>
+        <div class="home-btn">
+          <a href="/">to notdo</a>
+        </div>
+        <span class="search-tab">
+          <button id="search-btn">
+            <img src="../assets/icons/search.png" alt="search icon" />
+          </button>
+          <input type="search" id="search" name="query" />
+        </span>
+        <ul class="header-nav">
+          <li class="item header-item">
+            <a href="#">
+              <img src="../assets/icons/settings.png" alt="settings icon" />
+            </a>
+          </li>
+          <li class="item header-item">
+            <a href="#">
+              <img src="../assets/icons/question.png" alt="help icon" />
+            </a>
+          </li>
+          <li class="item header-item">
+            <a href="#">
+              <img src="../assets/icons/bell.png" alt="notification icon" />
+            </a>
+          </li>
+          <li class="item">
+            <a href="#">
+              <img src="../assets/icons/user.png" alt="profile icon" />
+            </a>
+          </li>
+        </ul>
+      </header>
+      <!-- Overlay for mobile -->
+      <div class="overlay"></div>
+      <main id="main-content-area">
+        <!-- sidebar -->
+        <aside id="sidebar">
+          <div class="top-sidebar">
+            <ul class="sidebar-nav">
+              <li class="item sidebar-item">
+                <button id="add-task-sidebar">
+                  <img src="../assets/icons/add.png" alt="add task icon" />
+                  Add Task
+                </button>
+              </li>
+              <li class="item sidebar-item">
+                <button id="upcoming">
+                  <img
+                    src="../assets/icons/calendar.png"
+                    alt="upcoming tasks icon"
+                  />
+                  Upcoming
+                </button>
+                <span id="number-of-upcoming"></span>
+              </li>
+              <li class="item sidebar-item">
+                <button id="completed">
+                  <img
+                    src="../assets/icons/check-mark.png"
+                    alt="upcoming tasks icon"
+                  />
+                  Completed
+                </button>
+                <span id="number-of-completed"></span>
+              </li>
+              <li class="item sidebar-item">
+                <button id="today-tasks">
+                  <img
+                    src="../assets/icons/today.png"
+                    alt="upcoming tasks icon"
+                  />
+                  Today
+                </button>
+                <span id="number-of-today"></span>
+              </li>
+              <hr />
+            </ul>
+          </div>
+          <div class="bottom-sidebar">
+            <div class="projects">
+              <button type="button" id="my-projects" class="click-btn">
+                My Projects
+              </button>
+              <button type="button" class="click-btn">
+                <img
+                  id="add-project"
+                  src="../assets/icons/project-add.png"
+                  alt="add project icon"
+                />
+              </button>
+            </div>
+            <ul class="sidebar-footer">
+              <li class="item sidebar-item">
+                <a href="#">
+                  <img
+                    src="../assets/icons/email-outline.png"
+                    alt="email icon"
+                  />
+                </a>
+              </li>
+              <li class="item sidebar-item">
+                <a href="#">
+                  <img src="/assets/icons/calendar.png" alt="calendar icon" />
+                </a>
+              </li>
+              <li class="item sidebar-item">
+                <a href="#">
+                  <img src="../assets/icons/people.png" alt="people icon" />
+                </a>
+              </li>
+              <li class="item sidebar-item">
+                <a href="#">
+                  <img src="../assets/icons/task.png" alt="task icon" />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+        <main id="main-area">
+          <div class="toolbar">
+            <div class="toolbar-top">
+              <div class="toolbar-headline">
+                <div class="title">
+                  <img
+                    src="../assets/icons/sunny.png"
+                    alt="sunny day icon"
+                  /><span>My Day</span>
+                </div>
+                <div class="today-date"></div>
+              </div>
+              <div class="toolbar-right">
+                <ul class="toolbar-nav">
+                  <li class="item main-item">
+                    <button id="sort" class="btn click-btn">
+                      <img src="/assets/icons/arrow.png" alt="sort icon" />
+                      Sort
+                    </button>
+                  </li>
+                  <li class="item main-item">
+                    <button id="group" class="btn click-btn">
+                      <img
+                        src="../assets/icons/group-icon.png"
+                        alt="group icon"
+                      />
+                      Group
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="toolbar-children"></div>
+            <!-- cards for sort/group appear here -->
+          </div>
+          <div class="flex-container">
+            <div class="add-task-container">
+              <form action="#" class="add-task-form-concise-m">
+                <div class="add-task-top">
+                  <input type="checkbox" class="checklist-btn" />
+                  <input
+                    type="text"
+                    name="title"
+                    id="add-task"
+                    maxlength="255"
+                    placeholder="Add a task"
+                  />
+                </div>
+                <div class="add-task-bottom">
+                  <div class="add-task-icons">
+                    <ul>
+                      <li class="item main-item">
+                        <img
+                          src="../assets/icons/calendar.png"
+                          alt="calender icon"
+                        />
+                      </li>
+                      <li class="item main-item">
+                        <img
+                          src="../assets/icons/bell.png"
+                          alt="notification icon"
+                        />
+                      </li>
+                      <li class="item main-item">
+                        <img
+                          src="../assets/icons/repeat.png"
+                          alt="repeat icon"
+                        />
+                      </li>
+                    </ul>
+                  </div>
+                  <button id="add-btn" type="submit">Add</button>
+                </div>
+              </form>
+            </div>
+            <div class="added-task-list">
+              <ul class="tasks"></ul>
+            </div>
+          </div>
+        </main>
+      </main>
+    </div>
+  </body>
+</html>

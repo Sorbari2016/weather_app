@@ -1,0 +1,70 @@
+PRELIMINARY
+1. Sketch app design.
+2. Gather assets.
+3. Start a webpack project
+4. Configure webpack
+5. Connect to remote repo.
+
+PART A: LOGIC
+1. Create blueprints
+    a. A todo item blueprint for each list 
+    b. A folder blueprint for folder or project
+    c. A folder manager to manage folders
+    d. A list blueprint to manage todo items
+2. Create local storage methods
+    a. Create a save method
+    b. Create a retrieve method
+3. Create sample data to use, two lists
+
+PART B: CONTENT
+1. Create Static content
+    a. Create boilerplate.
+    b. Create Header section.
+    c. Create the Sidear portion.
+    d. Create the Main portion
+2. Create basic style to get a feel of how 
+things are suppose to be. 
+    a. Create a general style.
+    b. Make it responsive. 
+3. Create Hamburger logic
+    a. Create Hamburger js manipulation
+    b. Style the result.
+4. Create Main area regular manipulative methods:
+    a. Create a method to remove main content area.
+    b. Create a method to re-render main area.
+5. Create dom logic - upper sidebar
+    a. Create event delegation for the upper sidebar buttons.
+    b. Create methods to respond to the event delegations.
+    c.Style response dom entity.
+6. Create a handler to handle the rest click items [project, add project button, Sort, Group, etc]
+    a. Add a btn-click or click-btn class to all the buttons that need it.
+    b. Create Handler that would manage the rest click events.
+    c. Create Switch statement that would manage the clicks.
+7. Manipulate content I
+    a. Add Date, with date-fns
+    b. Create a Sort method to get Sort icon to work
+    c. Create Group method to make group work
+    d. Ensure that when Sort drop pops, Group cannot & vice versa
+    e. Create search method for the search bar
+8. Manipulate content II
+    a Create a reusable createTaskTile markup method
+    b.Create method to add task via the main area add button
+    c. Create getUpcomingTasks method to get tiles of upcoming tasks
+    d. Create getCompletedTasks method to get tiles of completed tasks
+    e. Create getTodayTasksk method to get tasks that are completed
+9. Manipulate content III
+    a. Add the content of number of upcoming tasks
+    b. Add the content of number of completed tasks
+    c. Add the content of number of today tasks
+10. Complete Add task, Project
+    a. Complete logic and method to add task via the Add Task Sidebar button
+    b. Complete logic and method to add task via the main area
+    c. Complete logic and method to add project via Sidebar
+    d. Complete logic and method to add projects via the main area
+11. Complete Update Tasks
+    a. Create handler to handle task tile button click
+    b. Create markup method update task
+    c. Add logic to update task
+12. Complete Delete task method
+
+PART C: REFACTOR
