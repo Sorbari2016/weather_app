@@ -1,22 +1,23 @@
-# Todo List
+# Weather Application
 
 ## Description:
 
-Todolist is simple web app, where you can create, read, edit and delete your tasks or todo items. The purpose of this project is to help me understand how to:
+Weather App is a simply web application that allows users to input a location, & get its weather conditions. The aim of this project is to help me learn and master the following skills: 
 
-- Group related properties and methods using JavaScript objects.
-- Update and manage user interface elements dynamically.
-- Separate code into reusable modules for better organization.
-- Exchange data seamlessly using JSON format.
-- Compile and optimize JavaScript files using Webpack.
+- Linting & Formatting of code
+- Creating Dynamic contents users can interact with
+- Form Validation
+- Writing Asynchronous code
+- Working with Public APIs
+- Using the Async & Await syntax when writing asynchronous code
+- How to use Dynamic import
 
-## Features
+## Features:
 
-- Create, edit, and delete tasks
-- Organize tasks into custom folders
-- View full task details and descriptions
-- Mark tasks as completed
-
+- **🔍 Real-Time Location Search:** Search any city or location globally to get immediate weather updates.
+- **⏱️ 3-Hour Interval Forecast:** Track short-term atmospheric shifts across 5 distinct time steps, updated every 3 hours.
+- **🎠 4-Day Interactive Carousel:** Navigate left or right through a smooth carousel interface to inspect daily forecasts for the next 4 days.
+- 
 ## Tools
 
 - Javascript.
@@ -28,33 +29,13 @@ Todolist is simple web app, where you can create, read, edit and delete your tas
 
 ### Homepage
 
-![Todolist homepage](https://github.com/Sorbari2016/todolist/blob/main/assets/images/tdl-home.png)
+![Clare Weather homepage]
 
-### Homepage - Search
+### Clare Weather Mobile
 
-![Todolist Homepage -Search](https://github.com/Sorbari2016/todolist/blob/main/assets/images/tdl-home-search.png)
+![Clare Weather Mobile]
 
-### Folders
-
-![Todolist Folders view](https://github.com/Sorbari2016/todolist/blob/main/assets/images/tdl-user-folders.png)
-
-### Tasks or Todos
-
-![Todolist Tasks view](https://github.com/Sorbari2016/todolist/blob/main/assets/images/tdl-tasks%26concise-form.png)
-
-### Task Details
-
-![Todolist Task Details](https://github.com/Sorbari2016/todolist/blob/main/assets/images/tdl-task-details.png)
 
 ## Future Refactor/Improvement
 
-- Styles trimming
-- Ability to rename & delete custom folders
-- Add sound alert when a task is checked
-- Add sound alert when a task is deleted
-- Add ability to sort tasks
-- Add ability to group tasks
-- Removal of task tile from view when checkbox is clicked except when in Completed Tab
-- Styling upgrade
-- Improvement of modular code
-- Others...
+- Add Contact us, & About us pages
