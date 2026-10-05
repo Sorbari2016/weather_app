@@ -1,8 +1,19 @@
 // Imports
 import { next, previous, changeSlideByIndicator } from "clem-drop-carousel";
+import { formatDate } from "../../utilities/utility";
+
+// Date & Time
+const now = new Date();
+document.getElementById("current-date").textContent =
+  `${formatDate(now, "eeee do MMMM")} ||`;
+document.getElementById("local-time").textContent = formatDate(now, "h:mm a");
+
+// Carousel
+next();
+previous();
+changeSlideByIndicator();
 
 // Footer accordion, for mobile
-
 document.querySelectorAll(".footer-toggle").forEach((btn) => {
   btn.addEventListener("click", () => {
     const section = btn.parentElement;
@@ -20,8 +31,3 @@ document.querySelectorAll(".footer-toggle").forEach((btn) => {
     }
   });
 });
-
-// Carousel
-next();
-previous();
-changeSlideByIndicator();
