@@ -28,7 +28,7 @@ document.querySelector(".current-date-daily").textContent = formatDate(
   "EEEE",
 );
 
-// Carousel
+// Carousel methods
 next();
 previous();
 changeSlideByIndicator();

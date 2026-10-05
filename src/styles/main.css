@@ -19,7 +19,7 @@
   margin-bottom: 0.35rem;
 }
 
-.forecast-subtitle {
+.local-time-hourly {
   font-size: 0.75rem;
   color: var(--text-secondary);
   letter-spacing: 0.04em;
@@ -92,7 +92,7 @@
   margin-bottom: 1rem;
 }
 
-.daily-label {
+.current-date-daily {
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
