@@ -8,6 +8,26 @@ document.getElementById("current-date").textContent =
   `${formatDate(now, "eeee do MMMM")} ||`;
 document.getElementById("local-time").textContent = formatDate(now, "h:mm a");
 
+// Hourly forecast time
+const setHourlyTime = () => {
+  const timeEl = document.querySelector(".local-time-hourly");
+
+  if (!timeEl) return;
+
+  const now = new Date();
+
+  timeEl.textContent = formatDate(now, "HH:mm:ss 'GMT'XXX");
+};
+
+setHourlyTime();
+setInterval(setHourlyTime, 1000); // updates every second
+
+// Daily forecast day
+document.querySelector(".current-date-daily").textContent = formatDate(
+  now,
+  "EEEE",
+);
+
 // Carousel
 next();
 previous();
