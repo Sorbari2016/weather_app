@@ -1,6 +1,6 @@
 // Imports
 import { next, previous, changeSlideByIndicator } from "clem-drop-carousel";
-import { formatDate } from "../../utilities/utility";
+import { formatDate } from "../../utilities/utility.js";
 
 // Date & Time
 const now = new Date();
