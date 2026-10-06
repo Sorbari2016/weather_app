@@ -7,3 +7,4 @@ import "./styles/component.css";
 
 // Dependencies
 import "./modules/dom.js";
+import "./modules/weather.js";

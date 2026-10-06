@@ -49,7 +49,7 @@ app.get("/weather-api", async (req, res) => {
       let errorMessage = "Visual Crossing Api error";
 
       if (statusCode === 400) {
-        errorMessage = `Invalid location provided: '${location}'. Please check your spelling or formatting.`;
+        errorMessage = `Invalid location provided: '${location}'`;
       } else if (statusCode === 401 || statusCode === 403) {
         errorMessage =
           "API authentication failed. Check your Visual Crossing API key.";

@@ -1,19 +1,31 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+import path from "path";
+import { fileURLToPath } from "url";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import ESLintPlugin from "eslint-webpack-plugin";
 
-const ESLintPlugin = require("eslint-webpack-plugin"); // import the ESLint Webpack Plugin
+// Recreate __dirname since it doesn't exist in ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-module.exports = {
+export default {
   entry: "./src/index.js",
-
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
-    clean: true, // cleans the dist folder before each build (optional but useful)
+    clean: true,
   },
-
   module: {
     rules: [
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
@@ -28,16 +40,14 @@ module.exports = {
       },
     ],
   },
-
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/template.html",
     }),
     new ESLintPlugin({
-      extensions: ["js", "jsx", "ts", "tsx"], // files to lint
-      fix: true, // automatically fix formatting issues on save
+      extensions: ["js"],
+      fix: true,
     }),
   ],
-
   mode: "development",
 };
