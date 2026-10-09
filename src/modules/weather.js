@@ -136,4 +136,14 @@ function getHourlyForecasts() {
   return forecastManager.forecasts;
 }
 
-export { loadWeatherIcon, checkWeather, getHourlyForecasts, getDailyForecasts };
+function getCachedWeatherData() {
+  return cachedWeatherData;
+}
+
+export {
+  loadWeatherIcon,
+  checkWeather,
+  getHourlyForecasts,
+  getDailyForecasts,
+  getCachedWeatherData,
+};

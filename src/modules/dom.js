@@ -1,10 +1,12 @@
 // Imports
-import { next, previous, changeSlideByIndicator } from "clem-drop-carousel";
 import { formatDate } from "../../utilities/utility.js";
 import errorIcon from "../../assets/icons/weather-icons/weather-error.png";
 import prevBtnUrl from "../../assets/images/previous.png";
 import nextBtnUrl from "../../assets/images/next.png";
+import { next, previous, changeSlideByIndicator } from "clem-drop-carousel";
 import {
+  checkWeather,
+  getCachedWeatherData,
   getDailyForecasts,
   getHourlyForecasts,
   loadWeatherIcon,
@@ -36,13 +38,86 @@ document.querySelector(".current-date-daily").textContent = formatDate(
   "EEEE",
 );
 
+// Show current weather card
+showWeatherCard();
+
+async function showWeatherCard() {
+  // select current weather card & location
+  const currentWeatherCard = document.querySelector(".current-weather-card");
+  const locationEl = document.querySelector(".location-name");
+
+  if (!currentWeatherCard || !locationEl) return;
+
+  // render loading states
+  renderLoadingComponent(currentWeatherCard, locationEl);
+  resetForecasts();
+
+  try {
+    // get default weather
+    let defaultWeather = await checkWeather("Port Harcourt");
+    await renderWeatherCard(defaultWeather, currentWeatherCard, locationEl);
+    await showHourlyForecast();
+    await showDailyForecast();
+
+    // carousel methods
+    next();
+    previous();
+    changeSlideByIndicator();
+
+    // queried weather
+    const form = document.querySelector(".search-form");
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const query = form.querySelector("input").value?.trim();
+        if (!query) return;
+
+        // clear input field
+        form.querySelector("input").value = "";
+
+        // render loading state
+        renderLoadingComponent(currentWeatherCard, locationEl);
+        resetForecasts();
+
+        try {
+          // get queried weather
+          const queriedWeather = await checkWeather(query);
+
+          // render weather card
+          await renderWeatherCard(
+            queriedWeather,
+            currentWeatherCard,
+            locationEl,
+          );
+          // update daily, & hourly forecast contents
+          await showHourlyForecast();
+          await showDailyForecast();
+
+          // carousel methods
+          next();
+          previous();
+          changeSlideByIndicator();
+        } catch (searchError) {
+          console.error("Search failed:", searchError);
+          renderErrorComponent(
+            currentWeatherCard,
+            searchError.message,
+            locationEl,
+          );
+          showHourlyForecast();
+          showDailyForecast();
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Initial load failed:", error);
+    renderErrorComponent(currentWeatherCard, error.message, locationEl);
+  }
+}
+
 // Main
 // Hourly & Daily weather contents
-// Hourly
-showHourlyForecast();
-
-// Daily
-showDailyForecast();
 
 // Create hourly forecast content
 async function showHourlyForecast() {
@@ -117,15 +192,15 @@ async function showDailyForecast() {
 
       slide.innerHTML = `
         <div class="slide-details">
-                <p>Humidity: <span${forecast.humidity}</span></p>
-                <p>Wind: <span>${forecast.wind}</span></p>
-                <p>Pressure: <span>${forecast.pressure}</span></p>
+                <p>Pressure: <span>${parseInt(forecast.pressure)}hpa</span></p>
+                <p>Humidity: <span>${parseInt(forecast.humidity)}%</span></p>
+                <p>Wind: <span>${forecast.wind}km/h</span></p>
               </div>
-              <div class="slide-main">}
+              <div class="slide-main">
                 <p class="slide-condition">${forecast.description}</p>
                 <div class="slide-temp-row">
                   <span class="slide-temp">
-                    ${forecast.temp}<span class="unit">°</span><span class="scale">C</span>
+                    ${parseInt(forecast.temp)}<span class="unit">°</span><span class="scale">C</span>
                   </span>
                   <div class="slide-symbol">
                     <span class="daily-weather-symbol">
@@ -147,22 +222,32 @@ async function showDailyForecast() {
     // next and previous buttons
     const prevBtn = document.createElement("button");
     prevBtn.className = "carousel-nav prev";
-    prevBtn.ariaLabel = " Previous day";
-    prevBtn.innerHTML = `<img src="${prevBtnUrl}" alt="Previous" />`;
+    prevBtn.ariaLabel = "Previous day";
+    prevBtn.innerHTML = `<img src="${prevBtnUrl}" alt="Previous"/>`;
     const nextBtn = document.createElement("button");
     nextBtn.className = "carousel-nav next";
     nextBtn.ariaLabel = "Next day";
-    nextBtn.innerHTML`<img src="${nextBtnUrl}" alt="Next" />`;
+    nextBtn.innerHTML = `<img src="${nextBtnUrl}" alt="Next" />`;
     carousel.append(prevBtn, nextBtn);
 
-    // create carousel indicator markup
-    const indicator = document.createElement("div");
-    indicator.className = "carousel-indicator";
-    indicator.innerHTML = `<span class="dash active"></span>
-          <span class="dash"></span>
-          <span class="dash"></span>
-    `;
-    location.before(indicator); // attach indicator before location
+    const indicator = dailyContainer.querySelector(".carousel-indicator");
+
+    if (!indicator) {
+      // create carousel indicator markup
+      const indicator = document.createElement("div");
+      indicator.className = "carousel-indicator";
+      dailyForecast.forEach(() => {
+        const dash = document.createElement("span");
+        dash.classList.add("dash");
+        indicator.appendChild(dash);
+      });
+
+      indicator.firstElementChild.classList.add("active");
+      location.before(indicator); // attach indicator before location
+    }
+
+    // location
+    location.textContent = getCachedWeatherData().address;
   } catch (error) {
     console.error(error);
     carousel.innerHTML = "";
@@ -170,9 +255,14 @@ async function showDailyForecast() {
   }
 }
 
+// UTILITIES
+
 // Loading component
 function renderLoadingComponent(parentEl, locationEl = null) {
   if (!parentEl) return;
+
+  // clear the parent element
+  parentEl.innerHTML = "";
 
   // create markkup
   const loadingContainer = document.createElement("div");
@@ -182,16 +272,17 @@ function renderLoadingComponent(parentEl, locationEl = null) {
   // attach to parent
   parentEl.appendChild(loadingContainer);
 
-  // check if location element is available
-  if (locationEl) {
-    locationEl.innerHTML = "";
-    locationEl.textContent = "...";
-  }
+  // add location contnet
+  locationEl.innerHTML = "";
+  locationEl.textContent = "...";
 }
 
 // Error component
 function renderErrorComponent(parentEl, errorMessage, locationEl = null) {
   if (!parentEl) return;
+
+  // clear parent cleanly
+  parentEl.innerHTML = "";
 
   // create markup
   const errorContainer = document.createElement("div");
@@ -209,10 +300,59 @@ function renderErrorComponent(parentEl, errorMessage, locationEl = null) {
   }
 }
 
-// Carousel methods
-next();
-previous();
-changeSlideByIndicator();
+// Method to render weather card
+async function renderWeatherCard(weather, cardEl, locationEl) {
+  // clear weather card container, & location
+  cardEl.innerHTML = "";
+  locationEl.innerHTML = "";
+
+  // get icons dynamically
+  const iconUrl = await loadWeatherIcon(weather.icon);
+
+  // build marup
+  cardEl.innerHTML = `
+    <div class="temp-block">
+      <div class="weather-condition-symbol">
+        <img src="${iconUrl}" alt="${weather.icon}" />
+      </div>
+      <div class="temp-info">
+        <span class="temperature">
+          ${parseInt(weather.temp)}<span class="unit">°</span><span class="scale">C</span>
+        </span>
+        <span class="condition">${weather.description}</span>
+      </div>
+    </div>
+
+    <div class="extra-details">
+      <p>Pressure: <span id="precip">${parseInt(weather.pressure)} hPa</span></p>
+      <p>Humidity: <span id="humidity">${parseInt(weather.humidity)}%</span></p>
+      <p>Wind: <span id="wind">${weather.wind} km/h</span></p>
+    </div>
+  `;
+
+  locationEl.textContent = weather.location;
+}
+
+function resetForecasts() {
+  // houry
+  const hourlyList = document.querySelector(".hourly-list");
+  if (hourlyList) {
+    hourlyList.innerHTML = "";
+    hourlyList.innerHTML = `<p class="loading-text">Wating for weather information...</p>`;
+  }
+
+  // daily
+  const dailyContainer = document.querySelector(".daily-forecast");
+  if (dailyContainer) {
+    const carousel = dailyContainer.querySelector(".carousel-container");
+    const location = dailyContainer.querySelector(".carousel-location");
+    if (carousel && location) {
+      carousel.innerHTML = "";
+      carousel.innerHTML = `<p class="loading-text">Wating for weather information...</p>`;
+      location.textContent = "...";
+    }
+  }
+}
 
 // Footer accordion, for mobile
 document.querySelectorAll(".footer-toggle").forEach((btn) => {

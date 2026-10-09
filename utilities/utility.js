@@ -7,10 +7,10 @@ const formatDate = (date, dateFormat) => {
 };
 
 class HourlyForecast {
-  constructor(time, icon, desc) {
+  constructor(time, icon, description) {
     this.time = time;
     this.icon = icon;
-    this.desc = desc;
+    this.description = description;
   }
 }
 
@@ -26,11 +26,11 @@ class Forecast {
     this.forecasts = [];
   }
 
-  addHourlyForecast(timeString, icon, desc) {
+  addHourlyForecast(timeString, icon, description) {
     if (typeof timeString !== "string") {
       throw new Error("Provide a valid time string");
     }
-    const newForecast = new HourlyForecast(timeString, icon, desc);
+    const newForecast = new HourlyForecast(timeString, icon, description);
     this.forecasts.push(newForecast);
     return newForecast;
   }
