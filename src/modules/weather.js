@@ -44,12 +44,12 @@ async function checkWeather(location) {
     // store fetchced data globally
     cachedWeatherData = await getWeather(location);
 
-    // destructure only need properties
+    // destructure only needed properties
     const {
       temp,
       pressure,
       icon,
-      conditions: desc,
+      conditions: description,
       windspeed: wind,
       humidity,
     } = cachedWeatherData.currentConditions;
@@ -60,7 +60,7 @@ async function checkWeather(location) {
       temp,
       pressure,
       icon,
-      desc,
+      description,
       wind,
       humidity,
     };
@@ -82,7 +82,7 @@ async function loadWeatherIcon(iconName) {
     const fallback = await import(
       `../../assets/icons/weather-icons/default.png`
     );
-    console.error("Failed to weather icon", error);
+    console.error("Failed to import weather icon", error);
 
     return fallback.default;
   }
@@ -90,7 +90,8 @@ async function loadWeatherIcon(iconName) {
 
 // Get daily forecasts for the next 4 days
 function getDailyForecasts() {
-  if (!cachedWeatherData) throw new Error("Failed to load Daily Weather data");
+  if (!cachedWeatherData)
+    throw new Error("Failed to load daily weather forecast");
 
   const forecasts = cachedWeatherData?.days.slice(0, 5);
 
@@ -99,7 +100,7 @@ function getDailyForecasts() {
     temp: forecast.temp,
     pressure: forecast.pressure,
     icon: forecast.icon,
-    desc: forecast.conditions,
+    description: forecast.conditions,
     wind: forecast.windspeed,
     humidity: forecast.humidity,
   }));
@@ -107,7 +108,8 @@ function getDailyForecasts() {
 
 // Get houry forecaset, first 1 hour interval, the rest 3 hours intervals
 function getHourlyForecasts() {
-  if (!cachedWeatherData) throw new Error("Failed to load hourly data");
+  if (!cachedWeatherData)
+    throw new Error("Failed to load hourly weather forecast");
 
   // read cacheWeatherData to access hourly forecasts
   const todayRaw = cachedWeatherData.days[0];

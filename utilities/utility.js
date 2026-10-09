@@ -39,7 +39,7 @@ class Forecast {
     let forecast;
     let targetHour = this.currentHour + interval;
 
-    // check if target hour rolls over into tomorrow
+    // check if target hour is within today
     if (targetHour < 24) {
       const hourString = String(targetHour).padStart(2, "0");
       forecast = todayRaw.hours.find((outlook) =>

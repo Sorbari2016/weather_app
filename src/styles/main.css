@@ -242,6 +242,16 @@
   align-items: center;
 }
 
+.error-icon {
+  width: 36px;
+  height: 36px;
+  justify-self: center;
+}
+
+.error-text {
+  text-align: center;
+}
+
 /* Responsive main */
 @media (max-width: 900px) {
   .main-content {
