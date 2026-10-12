@@ -3,7 +3,7 @@ import { formatDate } from "../../utilities/utility.js";
 import errorIcon from "../../assets/icons/weather-icons/weather-error.png";
 import prevBtnUrl from "../../assets/images/previous.png";
 import nextBtnUrl from "../../assets/images/next.png";
-import { next, previous, changeSlideByIndicator } from "clem-drop-carousel";
+import { next, previous, changeSlideByIndicator } from "./carousel.js";
 import {
   checkWeather,
   getCachedWeatherData,
@@ -31,12 +31,6 @@ const setHourlyTime = () => {
 
 setHourlyTime();
 setInterval(setHourlyTime, 1000); // updates every second
-
-// Daily forecast day
-document.querySelector(".current-date-daily").textContent = formatDate(
-  now,
-  "EEEE",
-);
 
 // Show current weather card
 showWeatherCard();
@@ -113,6 +107,8 @@ async function showWeatherCard() {
   } catch (error) {
     console.error("Initial load failed:", error);
     renderErrorComponent(currentWeatherCard, error.message, locationEl);
+    showHourlyForecast();
+    showDailyForecast();
   }
 }
 
@@ -219,6 +215,9 @@ async function showDailyForecast() {
     // append to carousel container
     carousel.appendChild(slides);
 
+    // set date on first slide
+    setCarousalDate();
+
     // next and previous buttons
     const prevBtn = document.createElement("button");
     prevBtn.className = "carousel-nav prev";
@@ -228,6 +227,7 @@ async function showDailyForecast() {
     nextBtn.className = "carousel-nav next";
     nextBtn.ariaLabel = "Next day";
     nextBtn.innerHTML = `<img src="${nextBtnUrl}" alt="Next" />`;
+
     carousel.append(prevBtn, nextBtn);
 
     const indicator = dailyContainer.querySelector(".carousel-indicator");
@@ -354,6 +354,25 @@ function resetForecasts() {
   }
 }
 
+// Set date (as day) within the carousel area
+function setCarousalDate() {
+  const slides = [...document.querySelectorAll(".carousel-slide")];
+
+  const activeSlide = slides.find((slide) =>
+    slide.classList.contains("active"),
+  );
+
+  const slideIndex = activeSlide ? slides.indexOf(activeSlide) : 0;
+
+  const targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + slideIndex);
+
+  const dateElement = document.querySelector(".current-date-daily");
+  if (dateElement) {
+    dateElement.textContent = formatDate(targetDate, "EEEE");
+  }
+}
+
 // Footer accordion, for mobile
 document.querySelectorAll(".footer-toggle").forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -372,3 +391,5 @@ document.querySelectorAll(".footer-toggle").forEach((btn) => {
     }
   });
 });
+
+export { setCarousalDate };
