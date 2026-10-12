@@ -3,6 +3,7 @@ import { formatDate } from "../../utilities/utility.js";
 import errorIcon from "../../assets/icons/weather-icons/weather-error.png";
 import prevBtnUrl from "../../assets/images/previous.png";
 import nextBtnUrl from "../../assets/images/next.png";
+import toggleBtnUrl from "../../assets/images/toggle-icon.png";
 import { next, previous, changeSlideByIndicator } from "./carousel.js";
 import {
   checkWeather,
@@ -11,6 +12,7 @@ import {
   getHourlyForecasts,
   loadWeatherIcon,
 } from "./weather.js";
+import { toggleTemperatureScales } from "./condition.js";
 
 // Date & Time
 const now = new Date();
@@ -49,7 +51,13 @@ async function showWeatherCard() {
   try {
     // get default weather
     let defaultWeather = await checkWeather("Port Harcourt");
+    console.log(defaultWeather);
     await renderWeatherCard(defaultWeather, currentWeatherCard, locationEl);
+
+    // temperature scale toggle
+    toggleTemperatureScales();
+
+    // update daily, & hourly forecast contents
     await showHourlyForecast();
     await showDailyForecast();
 
@@ -84,6 +92,10 @@ async function showWeatherCard() {
             currentWeatherCard,
             locationEl,
           );
+
+          // temperature scale toggle
+          toggleTemperatureScales();
+
           // update daily, & hourly forecast contents
           await showHourlyForecast();
           await showDailyForecast();
@@ -316,9 +328,14 @@ async function renderWeatherCard(weather, cardEl, locationEl) {
         <img src="${iconUrl}" alt="${weather.icon}" />
       </div>
       <div class="temp-info">
-        <span class="temperature">
-          ${parseInt(weather.temp)}<span class="unit">°</span><span class="scale">C</span>
-        </span>
+        <div class="temp-with-toggle">
+          <span class="temperature">
+            ${parseInt(weather.temp)}<span class="unit">°</span><span class="scale"></span>
+          </span>
+          <button class="unit-toggle" aria label="Switch between Celsius and Fahrenheit" type="button">
+            <img src="${toggleBtnUrl}" alt="toggle icon" class="toggle-icon" />
+          </button>
+        </div>
         <span class="condition">${weather.description}</span>
       </div>
     </div>
