@@ -390,6 +390,12 @@ function setCarousalDate() {
   }
 }
 
+// FOOTER
+// Footer copyrite text
+const currentYear = new Date().getFullYear();
+document.querySelector(".copyright").textContent =
+  `(c) ${currentYear} Clare Weather, Inc. All rights reserved.`;
+
 // Footer accordion, for mobile
 document.querySelectorAll(".footer-toggle").forEach((btn) => {
   btn.addEventListener("click", () => {
